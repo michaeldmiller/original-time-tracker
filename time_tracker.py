@@ -119,7 +119,6 @@ valid_categories = ['sleep', 'entertainment', 'career', 'outdoor', 'project',
                     'housework', 'maintenance',  'volunteering', 'education', 'transit', 
                     'caregiving', 'other', 'missing']
 
-# create variable containing times (in minutes), used by an activity block
 def clean_block(raw_block):
     raw_block = raw_block
     raw_block = raw_block.replace(" ", "")
@@ -134,8 +133,6 @@ def get_minutes_value(time):
 def initialize_unused_times_list():
     return list(range(0, 1440))
 
-used_times_list = []
-
 def add_to_used_times_list(start_time, end_time, unused_times_list):
     used_block = list(range(start_time, end_time + 1))
     # remove from unused list
@@ -144,7 +141,6 @@ def add_to_used_times_list(start_time, end_time, unused_times_list):
             unused_times_list.remove(time)
         except:
             return "Time is already used"
-
 
 def process_raw_block(raw_block, unused_times_list):
     try: 
@@ -158,12 +154,9 @@ def process_raw_block(raw_block, unused_times_list):
         
         block_category = block[10:]
         block_category = block_category.lower()
-        print(block_category)
         if block_category not in valid_categories:
             return "Invalid category"
 
-        # print(start_minutes_value)
-        #print(end_minutes_value)
 
         used_times_error = add_to_used_times_list(start_minutes_value, end_minutes_value, unused_times_list)
         if (isinstance(used_times_error, str)):
@@ -172,7 +165,6 @@ def process_raw_block(raw_block, unused_times_list):
         return [start_minutes_value, end_minutes_value, block_category]
     except Exception as e:
         return "read error " + str(e) + block + str(len(block))
-
 
 def create_charts_for_day(chronological_activities, unused_times, report_day):
     # create first chart, the line chart
@@ -743,6 +735,8 @@ def create_charts_for_day(chronological_activities, unused_times, report_day):
     # save excel file
     wb.save("rawData.xlsx")
 
+    pyplot.close()
+
 
 day_data = {}
 error_log = []
@@ -753,7 +747,6 @@ input_data = input_file.read()
 lines = input_data.splitlines()
 current_day = "2000 01 01"
 
-print(len(lines))
 
 # a line is either a date, or a block
 for line in lines:
@@ -770,9 +763,6 @@ for line in lines:
 input_file.close()
 
 processed_days = {}
-
-print(day_data.items())
-
 
 for day, blocks in day_data.items():
     unused_times = initialize_unused_times_list()
