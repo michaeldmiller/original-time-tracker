@@ -25,7 +25,7 @@ def color_category_sorter(category):
                   "grooming": [166, 255, 123], "culinary": [255, 191, 30], "relaxation": [91, 173, 68],
                   "fitness": [255, 251, 67], "housework": [191, 131, 0], "maintenance": [118, 55, 0],
                   "education": [155, 50, 170], "volunteering": [140, 20, 86], "transit": [218, 218, 218],
-                  "caregiving": [8, 45, 84], "other": [80, 180, 155], "missing": [87, 87, 87]}
+                  "caregiving": [95, 10, 10], "other": [80, 180, 155], "missing": [87, 87, 87]}
     intermediate_color = color_dict[category]
     intermediate_color_counter = 0
     while intermediate_color_counter < 3:
